@@ -86,4 +86,99 @@ pub fn number_practice7() {
 pub fn number_practice8() {
     assert!(0.1_f32+0.2_f32==0.3_f32);
     assert!((0.1_f64+ 0.2 - 0.3).abs() < 0.001);
+    //方法1: 使用 f32 类型来进行计算，因为 f32 的精度较低，可能会导致 0.1 + 0.2 的结果恰好等于 0.3。
+    //方法2: 使用 f64 类型来进行计算，并且使用一个小的误差范围来比较结果，因为浮点数的精度问题可能会导致直接比较 0.1 + 0.2 和 0.3 不相等。
+    //结论: 在处理浮点数时，直接比较可能会遇到精度问题，因此使用适当的类型和比较方法是很重要的。
+}
+
+/// 9.🌟🌟 两个目标: 1. 修改 assert! 让它工作 2. 让 println! 输出: 97 - 122
+/// 
+/// 
+pub fn number_practice9() {
+    let mut sum = 0;
+    for i in -3..2 {
+        sum += i;
+    }
+
+    assert!(sum == -3);
+
+    for c in 'a'..='z' {
+        println!("{}",c);
+    }
+}
+
+pub fn number_practice9_solution() {
+    let mut sum = 0;
+    for i in -3..2 {
+        sum += i;
+    } 
+    //-3+1 = -2 
+    //-2+0 = -2
+    // -1 
+    assert!(sum == -5);
+    for c in 'a'..='z' {
+        print!("{} ",c as u8);
+    }
+}
+
+#[derive(Debug)]
+struct  Kilometers(f64); 
+
+#[derive(Debug)]
+struct Meters(f64);
+
+impl Kilometers {
+    fn clone(&self) -> Self {
+        Kilometers(self.0)
+    }
+}
+
+impl  From<Kilometers> for Meters {
+    fn from(km: Kilometers) -> Self {
+        Meters(km.0 * 1000.0)
+    }
+}
+
+#[derive(Debug)]
+struct Port(u16);
+#[derive(Debug)]
+enum PortError {
+    InvalidPort,
+    PortOutOfRange,
+}
+
+impl TryFrom<i32> for Port {
+    type Error = PortError;
+
+    fn try_from(value: i32) -> Result<Self, Self::Error> {
+        if value < 0 {
+            Err(PortError::InvalidPort)
+        } else if value > u16::MAX as i32 {
+            Err(PortError::PortOutOfRange)
+        } else {
+            Ok(Port(value as u16))
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_kilometers_to_meters() {
+        let km = Kilometers(1.0);
+        let km2 = km.clone();
+        let m: Meters = km.into();
+        println!("Kilometers: {:?}, Meters: {:?}", &km2, &m);
+        assert_eq!(m.0, 1000.0);
+    }
+
+    #[test]
+    fn test_port_try_from() {
+        let p1 = Port::try_from(8080);
+        let p2:Result<Port, _> = 70000.try_into();
+
+        println!("Port 8080: {:?}, Port 70000: {:?}", &p1, &p2);
+    }
 }
