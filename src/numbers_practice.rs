@@ -1,3 +1,6 @@
+use core::range;
+use std::ops::{Range,RangeInclusive};
+
 /// 数值类型测试
 
 /// > Tips: 如果我们没有显式的给予变量一个类型，那编译器会自动帮我们推导一个类型
@@ -121,6 +124,73 @@ pub fn number_practice9_solution() {
     }
 }
 
+/// 10. 区间范围实例
+pub fn number_practice10() {
+    assert_eq!((1..5),Range{start: 1, end: 5});
+    assert_eq!((1..=5),RangeInclusive::new(1, 5));
+}
+
+/// 接受一个实现了 IntoIterator 的类型，并打印其中的元素
+pub fn range_print<T>(collect:T) where T: IntoIterator, T::Item: std::fmt::Display {
+    for item in collect {
+        println!("{}", item);
+    }
+    println!("------------------");
+}
+
+pub fn number_practice10_range() {
+    let open_r1 = 1..5;
+    let open_r2 = Range{start: 1, end: 5};
+    let closed_r1 = 1..=5;
+    let closed_r2 = RangeInclusive::new(1, 5);
+
+    range_print(open_r1);
+    range_print(open_r2);
+    range_print(closed_r1);
+    range_print(closed_r2);
+}
+
+// 填空，并解决错误
+pub fn number_practice11() {
+    // 整数加法
+    // assert!(1u32 + 2 == __);
+    assert!(1u32 + 2 == 3);
+
+    // 整数减法
+    // assert!(1i32 - 2 == __);
+    assert!(1i32 - 2 == -1);
+    
+    // assert!(1u8 - 2 == -1);
+    //  ssert!(1u8 - 2 == 255);
+    
+    // assert!(3 * 50 == __);
+    assert!(3 * 50 == 150);
+
+    // assert!(9.6 / 3.2 == 3.0); // error ! 修改它让代码工作
+    assert!(9.6 / 3.2 == 3.0); // error ! 修改它让代码工作
+
+    // assert!(24 % 5 == __);
+    assert!(24 % 5 == 4);
+    
+    // 逻辑与或非操作
+    // assert!(true && false == __);
+    assert!(true && false == false);
+
+    // assert!(true || false == __);
+    assert!(true || false == true);
+
+    // assert!(!true == __);
+    assert!(!true == false);
+
+    // 位操作
+    println!("0011 AND 0101 is {:04b}", 0b0011u32 & 0b0101);
+    println!("0011 OR 0101 is {:04b}", 0b0011u32 | 0b0101);
+    println!("0011 XOR 0101 is {:04b}", 0b0011u32 ^ 0b0101);
+    println!("1 << 5 is {}", 1u32 << 5);
+    println!("0x80 >> 2 is 0x{:x}", 0x80u32 >> 2);
+}
+
+/// try_into 和 from 的练习
 #[derive(Debug)]
 struct  Kilometers(f64); 
 
@@ -171,6 +241,7 @@ mod tests {
         let km2 = km.clone();
         let m: Meters = km.into();
         println!("Kilometers: {:?}, Meters: {:?}", &km2, &m);
+        let m2:Meters = km2.into();
         assert_eq!(m.0, 1000.0);
     }
 
@@ -180,5 +251,15 @@ mod tests {
         let p2:Result<Port, _> = 70000.try_into();
 
         println!("Port 8080: {:?}, Port 70000: {:?}", &p1, &p2);
+    }
+
+    #[test]
+    fn test_practice10_range() {
+        number_practice10_range();
+    }
+
+    #[test]
+    fn test_practice11_solution() {
+        number_practice11();
     }
 }
