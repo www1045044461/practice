@@ -1,3 +1,5 @@
+use std::string;
+
 /// 所有权实验
 
 /// 1. 使用尽可能多的方式通过编译
@@ -126,7 +128,69 @@ fn question6() {
     
     // 只修改下面这行代码 !
     // let s1 = s;
+    let mut s1 = s; // 将s的所有权转移给s1，并且s1是可变的
     s1.push_str("world")
+}
+
+fn question7() {
+    let x = Box::new(5);
+    
+    // let ...      // 完成该行代码，不要修改其它行！
+    let mut y = Box::new(10);
+    
+    *y = 4;
+    
+    assert_eq!(*x, 5);
+}
+
+/**********************************************************************/
+fn example_test() {
+    #[derive(Debug)]
+    struct Person {
+        name: String,
+        age: Box<u8>,
+    }
+
+    let person = Person {
+        name: String::from("Alice"),
+        age: Box::new(20),
+    };
+
+    // 通过这种解构式模式匹配，person.name 的所有权被转移给新的变量 `name`
+    // 但是，这里 `age` 变量却是对 person.age 的引用, 这里 ref 的使用相当于: let age = &person.age 
+    let Person { name, ref age } = person;
+
+    println!("The person's age is {}", age);
+
+    println!("The person's name is {}", name);
+
+    // Error! 原因是 person 的一部分已经被转移了所有权，因此我们无法再使用它
+    // println!("The person struct is {:?}", person);
+
+    // 虽然 `person` 作为一个整体无法再被使用，但是 `person.age` 依然可以使用
+    println!("The person's age from person struct is {}", person.age);
+}
+
+pub fn question8() {
+    let t = (String::from("hello"), String::from("world"));
+    // let _s = t.0; //原题
+    let _s = &t.0;
+    // 仅修改下面这行代码，且不要使用 `_s`
+    println!("{:?}", t);
+
+    //解答思路: 原题中，t.0 的所有权被转移给了 _s，因此 t 这个元组就无法再使用了。
+    //通过将 _s 定义为对 t.0 的引用，我们避免了所有权的转移，这样 t 仍然可以被使用，从而成功编译并输出整个元组。
+}
+
+pub fn question9(){
+   let t = (String::from("hello"), String::from("world"));
+
+   // 填空，不要修改其它代码
+   //let (__, __) = __;
+   let (s1, s2) = (&t.0, &t.1);
+   
+   //思路: 通过将 s1 和 s2 定义为对 t.0 和 t.1 的引用，我们避免了所有权的转移，这样 t 仍然可以被使用，从而成功编译并输出整个元组。
+   println!("{:?}, {:?}, {:?}", s1, s2, t); // -> "hello", "world", ("hello", "world")
 }
 
 /// 5.不要使用 clone，使用 copy 的方式替代
@@ -140,6 +204,11 @@ mod tests {
         // question2();
         // question3();
         // question4();
-        question5();
+        // question5();
+        // question6();
+        // question7();
+        // example_test();
+        // question8();
+        question9();
     }
 }
