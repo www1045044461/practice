@@ -7,6 +7,7 @@ mod char_bool_unit;
 mod statements_expressions;
 mod function;
 mod ownership;
+mod complex_type;
 
 fn main()
 {
