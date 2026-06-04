@@ -53,6 +53,14 @@ fn question4() {
     push_str(&mut s);
 }
 
+fn question5() {
+    let mut s = String::from("hello, ");
+    //填写空白处,让代码工作
+    // let p = __;
+    let p = &mut s;
+    p.push_str("world");
+}
+
 fn push_str(s: &mut String) {
     s.push_str("world")
 }
@@ -91,6 +99,125 @@ fn slices_deref() {
     // &Vec<i32> 自动强转为 &[i32]
 }
 
+fn need_ref(x: &String) {
+    println!("{}", x);
+}
+
+fn need_ref_test() {
+    let s = String::from("abc");
+    // need_ref(s); // 这一行会报错：期望 &String，实际是 String
+    need_ref(&s); // 需要显式写借用
+}
+
+/// ref 与 &类似,可以用来获取一个值的引用但是他们的用法各有不同
+fn question6() {
+    let c = '中';
+
+    let r1 = &c;
+    // 填写空白处，但是不要修改其它行的代码
+    // let __ r2 = c;
+    let ref r2 = c;
+
+    println!("r1: {}, r2: {}", *r1, *r2);
+    assert_eq!(*r1, *r2);
+
+    println!("r1 的内存地址是 {:p}", r1);
+    println!("r2 的内存地址是 {:p}", r2);
+    // 判断两个内存地址的字符串是否相等
+    assert_eq!(get_addr(r1), get_addr(r2));
+}
+
+// 获取传入引用的内存地址的字符串形式
+fn get_addr(r: &char) -> String {
+    format!("{:p}", r)
+}
+
+// 移除代码某个部分，让它工作
+// 你不能移除整行的代码！
+fn question7() {
+    let mut s = String::from("hello");
+
+    // let r1 = &mut s;
+    // let r2 = &mut s; //原题
+    let r1 = &s;
+    let r2 = &s; //生命周期内只允许一个可变引用或者多个不可变引用，但不能同时存在可变和不可变引用
+
+    println!("{}, {}", r1, r2);
+}
+
+/// Arc 和 Mutex 的使用示例-->从引用规则延申出来的
+use std::sync::{Arc, Mutex};
+fn arc_mutex_example() {
+    let data = Arc::new(Mutex::new(0));
+    let mut handles = Vec::new();
+
+    for _ in 0..10 {
+        let counter_clone = Arc::clone(&data);
+        let handle = std::thread::spawn(move || {
+            for _ in 0..1000 {
+                let mut guard = counter_clone.lock().unwrap();
+                *guard += 1;
+                // guard 在这里被自动释放，因为它超出了作用域
+            }
+        });
+
+        handles.push(handle);
+    }
+
+    for join_handle in handles {
+        join_handle.join().unwrap();
+    }
+
+    let final_count = *data.lock().unwrap();
+    println!("Final count: {}", final_count);
+}
+
+//8.可变性
+fn borrow_object_as_mut(s: &mut String) {
+    s.push_str("world");
+}
+
+fn question8() {
+    // 通过修改下面一行代码来修复错误
+    // let  s = String::from("hello, ");
+    let mut s = String::from("hello");
+    borrow_object_as_mut(&mut s)
+}
+
+/// 9.可以从可变对象钟借用不可变引用
+fn question9() {
+    let mut s = String::from("hello, ");
+    borrow_object(&s);
+    s.push_str("world");
+}
+
+//10.NLL
+// 注释掉一行代码让它工作
+fn question10() {
+    let mut s = String::from("hello, ");
+
+    let r1 = &mut s;
+    r1.push_str("world");
+    let r2 = &mut s;
+    r2.push_str("!");
+    
+    // println!("{}",r1); //原题
+    // 注释掉这里不让r1的生命周期继续到r2的生命周期内，这样就不会有两个可变引用同时存在了
+}
+
+//11.
+
+fn question11() {
+    let mut s = String::from("hello, ");
+
+    let r1 = &mut s;
+    let r2 = &mut s;
+
+    // 在下面增加一行代码人为制造编译错误：cannot borrow `s` as mutable more than once at a time
+    // 你不能同时使用 r1 和 r2
+    // println!("{}",r1);
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -101,7 +228,15 @@ mod tests {
         // question2();
         // question3();
         // question4();
+        // question5();
+        // question6();
+        // question7();
+        // arc_mutex_example();
+        // question8();
+        // question9();
+        // question10();
+        question11();
         // self_method_deref();
-        slices_deref();
+        // slices_deref();
     }
 }
