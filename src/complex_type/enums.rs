@@ -249,10 +249,17 @@ mod tests {
     fn test() {
         // question1();
         // question2();
+<<<<<<< HEAD
         question3();
         // question4();
         // question5();
         // question6();
+=======
+        // question3();
+        // question4();
+        // question5();
+        question6();
+>>>>>>> 3f87fbb0b14e3257f7a23de9839ffce399b7cb58
     }
 }
 
