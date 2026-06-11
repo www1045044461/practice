@@ -218,10 +218,82 @@ fn set_email(u: User) -> User {
     User{
         email: String::from("contact@im.dev"),
         ..u //使用结构体更新语法来创建一个新的User实例，除了email字段被更新了以外，其他字段的值都和u一样。
-    };
+    }
 
     // u //错误:u部分成员已经move掉了
 }
+
+
+// 填空，让代码工作
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+fn question7() {
+    let scale = 2;
+    let rect1 = Rectangle {
+        width: dbg!(30 * scale), // 打印 debug 信息到标准错误输出 stderr,并将 `30 * scale` 的值赋给 `width`
+        height: 50,
+    };
+
+    dbg!(&rect1); // 打印 debug 信息到标准错误输出 stderr
+
+    // println!(__, rect1); // 打印 debug 信息到标准输出 stdout 原题
+    println!("{:#?}", rect1); // 打印 debug 信息到标准输出 stdout
+    println!("{:?}", rect1); // 打印 debug 信息到标准输出 stdout
+}
+
+
+/// 部分所有权转移和部分成员变量引用
+fn example() {
+    #[derive(Debug)]
+    struct Person {
+        name: String,
+        age: Box<u8>,
+    }
+
+    let person = Person {
+        name: String::from("Alice"),
+        age: Box::new(20),
+    };
+
+    // 通过这种解构式模式匹配，person.name 的所有权被转移给新的变量 `name`
+    // 但是，这里 `age` 变量却是对 person.age 的引用, 这里 ref 的使用相当于: let age = &person.age 
+    let Person { name, ref age } = person;
+
+    println!("The person's age is {}", age);
+
+    println!("The person's name is {}", name);
+
+    // Error! 原因是 person 的一部分已经被转移了所有权，因此我们无法再使用它
+    //Error:borrow of partially moved value: `person`
+    // println!("The person struct is {:?}", person); 
+
+    // 虽然 `person` 作为一个整体无法再被使用，但是 `person.age` 依然可以使用
+    println!("The person's age from person struct is {}", person.age);
+}
+
+
+// 修复错误
+#[derive(Debug)]
+struct File {
+    name: String,
+    data: String,
+}
+fn question8() {
+    let f = File {
+        name: String::from("readme.md"),
+        data: "Rust By Practice".to_string()
+    };
+
+    let _name = f.name;
+
+    // 只能修改这一行
+    // println!("{}, {}, {:?}",f.name, f.data, f); //原题
+    println!("{}, {}",_name, f.data); //方法1
+} 
 
 #[cfg(test)]
 mod tests {
@@ -234,6 +306,9 @@ mod tests {
         // question3();
         // question4();
         // question5();
-        question6();
+        // question6();
+        // question7();
+        // example();
+        question8();
     }
 }
