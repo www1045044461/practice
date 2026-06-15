@@ -172,6 +172,18 @@ fn question9() {
     assert_eq!(result, 20);
 }
 
+/// while不能返回值，所以下面的代码是错误的
+// fn while_example(){
+//     let mut n = 1;
+//     let result = while n <= 10 {
+//         println!("n is {}", n);
+//         n += 1;
+//         if n == 5
+//         {
+//             break 10;
+//         }
+//     }
+// }
 
 /// 🌟🌟🌟 当有多层循环时，你可以使用 continue 或 break 来控制外层的循环。
 /// 要实现这一点，外部的循环必须拥有一个标签 'label, 然后在 break 或 continue 时指定该标签
