@@ -74,6 +74,129 @@ fn question4() {
     }
 }
 
+// 填空，让最后一行的  println! 工作 !
+/// 🌟🌟 当条件为 true 时，while 将一直循环
+fn question5() {
+    // 一个计数值
+    let mut n = 1;
+
+    // 当条件为真时，不停的循环
+    // while n __ 10 {
+    while n <= 10 {
+        //原题
+        if n % 15 == 0 {
+            println!("fizzbuzz");
+        } else if n % 3 == 0 {
+            println!("fizz");
+        } else if n % 5 == 0 {
+            println!("buzz");
+        } else {
+            println!("{}", n);
+        }
+        // __; //原题
+        n += 1;
+    }
+
+    println!("n 的值是 {}, 循环结束", n);
+}
+
+// 填空，不要修改其它代码
+/// 🌟 使用 break 可以跳出循环
+fn question6() {
+    let mut n = 0;
+    for i in 0..=100 {
+        if n == 66 {
+            //    __ //原题
+            break;
+        }
+        n += 1;
+    }
+
+    assert_eq!(n, 66);
+}
+
+/// 🌟🌟 continue 会结束当次循环并立即开始下一次循环
+fn question7() {
+    let mut n = 0;
+    for i in 0..=100 {
+        if n != 66 {
+            n += 1;
+            //    __;
+            continue;
+        }
+        //    __
+        break;
+    }
+    assert_eq!(n, 66);
+}
+
+
+/// 🌟🌟 loop 一般都需要配合 break 或 continue 一起使用
+fn question8() {
+    let mut count = 0u32;
+    println!("Let's count until infinity!");
+    // 无限循环
+    loop {
+        count += 1;
+        if count == 3 {
+            println!("three");
+            // 跳过当前循环的剩余代码
+            // __; //原题
+            continue;
+        }
+
+        println!("{}", count);
+        if count == 5 {
+            println!("OK, that's enough");
+            // __; //原题
+            break;
+        }
+    }
+
+    assert_eq!(count, 5);
+}
+
+
+/// 🌟🌟 loop 是一个表达式，因此我们可以配合 break 来返回一个值
+fn question9() {
+    let mut counter = 0;
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            // __; //原题
+            break counter * 2;
+        }
+    };
+
+    println!("The result is {}", &result);
+    assert_eq!(result, 20);
+}
+
+
+/// 🌟🌟🌟 当有多层循环时，你可以使用 continue 或 break 来控制外层的循环。
+/// 要实现这一点，外部的循环必须拥有一个标签 'label, 然后在 break 或 continue 时指定该标签
+fn question10() {
+    let mut count = 0;
+    'outer: loop {
+        'inner1: loop {
+            if count >= 20 {
+                // 这只会跳出 inner1 循环
+                break 'inner1; // 这里使用 `break` 也是一样的
+            }
+            count += 2;
+        }
+        count += 5;
+        'inner2: loop {
+            if count >= 30 {
+                break 'outer;
+            }
+            continue 'outer;
+        }
+    }
+    // assert!(count == __)
+    assert!(count == 30)
+}
+
 pub trait Animal {
     fn sound(&self) -> String;
 }
@@ -207,7 +330,7 @@ fn invariance_example2() {
         let short = String::from("world");
         let short_ref: &str = &short;
         //error: `short` does not live long enough borrowed value does not live long enough
-        cell.set(short_ref);
+        // cell.set(short_ref);
     }
     println!("{}", cell.get());
 }
@@ -219,13 +342,13 @@ fn invariance_example3() {
 
     {
         let short = String::from("world");
-        let short_ref: &str = &short; 
+        let short_ref: &str = &short;
         //`short` does not live long enough borrowed value does not live long enough
 
         // 如果 RefCell<T> 对 T 是协变，
         // 就可能把 short_ref 写进原本装 &'static str 的容器
         //
-        *rc.borrow_mut() = short_ref;
+        // *rc.borrow_mut() = short_ref;
     }
 
     println!("{}", rc.borrow());
@@ -247,7 +370,13 @@ mod tests {
         // caller_contravariance(&dog);
         // contravariance_example3();
         // contravariance_example3_real();
-        invariance_example1();
-        invariance_example2();
+        // invariance_example1();
+        // invariance_example2();
+        // question5();
+        // question6();
+        // question7();
+        // question8();
+        // question9();
+        question10();
     }
 }
