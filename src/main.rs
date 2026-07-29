@@ -9,6 +9,7 @@ mod function;
 mod ownership;
 mod complex_type;
 mod controlflow;
+mod patterns;
 
 fn main()
 {

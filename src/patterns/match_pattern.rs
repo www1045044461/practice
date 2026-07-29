@@ -1,4 +1,4 @@
-use crate::controlflow::match_pattern::Message::Quit;
+use crate::patterns::match_pattern::Message::Quit;
 
 /// 匹配模式
 
@@ -116,8 +116,8 @@ fn question5() {
     let v = vec![MyEnum::Foo,MyEnum::Bar,MyEnum::Foo];
     for e in v {
         // if e == MyEnum::Foo { // 修复错误，只能修改本行代码
-        if let MyEnum::Foo = e  //方法2
-        // if matches!(e, MyEnum::Foo) //方法1
+        // if let MyEnum::Foo = e  //方法2
+        if matches!(e, MyEnum::Foo) //方法1
         {
             count += 1;
         }
