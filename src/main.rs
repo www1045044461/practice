@@ -11,6 +11,7 @@ mod complex_type;
 mod controlflow;
 mod patterns;
 mod method_associated_methods;
+mod generics_traits;
 
 fn main()
 {
