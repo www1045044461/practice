@@ -10,6 +10,7 @@ mod ownership;
 mod complex_type;
 mod controlflow;
 mod patterns;
+mod method_associated_methods;
 
 fn main()
 {
