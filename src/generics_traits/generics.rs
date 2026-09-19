@@ -13,6 +13,8 @@ fn gen_spec_i32(_s: SGen<i32>) {}
 
 fn generic<T>(_s: SGen<T>) {
     //获取T的类型名并打印
+    //如何获取函数签名并打印
+    println!("Function signature: {}", std::any::type_name::<fn(SGen<T>)>());
     println!("Type of T is: {}", std::any::type_name::<T>());
 }
 
