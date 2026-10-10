@@ -2,6 +2,7 @@
 name = "practice"
 version = "0.1.0"
 edition = "2024"
+nightly = true
 
 [dependencies]
 utf8_slice = "1.0.0"
