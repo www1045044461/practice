@@ -200,7 +200,7 @@ mod tests {
 
     #[test]
     fn test_question1() {
-        // question1();
+        question1();
         // question2();
         // question3();
         // question4();

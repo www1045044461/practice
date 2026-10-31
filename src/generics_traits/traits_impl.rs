@@ -281,6 +281,7 @@ impl Animal for Cow {
 //     }
 // }
 
+/// Rust返回类型需要同时知道栈上固定大小和具体类型，因此无法直接返回不同类型的实现了同一特征的值，必须使用 `Box<dyn Trait>` 来进行动态分发。
 fn random_animal(random_number: f64) -> Box<dyn Animal> {
     if random_number < 0.5 {
         Box::new(Sheep { name: "Dolly".to_string() , naked:false})
