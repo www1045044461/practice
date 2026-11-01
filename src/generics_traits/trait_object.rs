@@ -287,21 +287,21 @@ mod example5_extends {
         }
     }
 
-    fn example5_extends() {
+    pub fn example5_extends() {
     {
         let text = String::from("hello");
         let trait_object:&dyn MyTrait = &text;
 
-        assert_eq!(text.duplicate(), "String: hello"); //Self==String 可以調用
+        assert_eq!(text.duplicate(), "hello"); //Self==String 可以調用
         text.inspect(42); //Self==String 可以調用
 
         assert_eq!(trait_object.describe(), "String: hello"); 
         //經過虛表調用 describe 方法
 
-        trait_object.duplicate(); // 错误：dyn MyTrait 不满足 Self: Sized
+        // trait_object.duplicate(); // 错误：dyn MyTrait 不满足 Self: Sized
         // the `duplicate` method cannot be invoked on a trait object;
         // the method cannot be invoked on a trait object because its `Self: Sized` bound is not satisfied
-        trait_object.inspect(42);  
+        // trait_object.inspect(42);  
         // 同上
 
     }
@@ -383,6 +383,6 @@ mod tests {
     #[test]
     fn test_example5_extends() 
     {
-        example5_extends();
+        example5_extends::example5_extends();
     }
 }
