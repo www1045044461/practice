@@ -6,6 +6,7 @@ nightly = true
 
 
 [dependencies]
+twox-hash = "2.1.5"
 utf8_slice = "1.0.0"
 
 [profile.dev]
