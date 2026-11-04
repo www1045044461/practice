@@ -4,5 +4,24 @@ version = "0.1.0"
 edition = "2024"
 nightly = true
 
+
 [dependencies]
 utf8_slice = "1.0.0"
+
+[profile.dev]
+opt-level = 0
+debug = "full"
+debug-assertions = true
+overflow-checks = true
+strip = "none"
+lto = false
+incremental = false
+
+[profile.test]
+opt-level = 0
+debug = "full"
+debug-assertions = true
+overflow-checks = true
+strip = "none"
+lto = false
+incremental = false

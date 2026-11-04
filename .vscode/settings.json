@@ -1,0 +1,22 @@
+{
+    "lldb.displayFormat": "auto",
+    "lldb.showDisassembly": "auto",
+    "lldb.dereferencePointers": true,
+    "lldb.consoleMode": "evaluate",
+    "lldb.verboseLogging": true,
+    "lldb.evaluateForHovers": false,
+    "lldb.useNativePDBReader": true,
+    "lldb.script": {
+        "lang.rust.toolchain": "nightly-x86_64-pc-windows-msvc"
+    },
+    "lldb.library": "D:\\envs\\llvm\\bin\\liblldb.dll",
+    "lldb-dap.executable-path": "D:\\envs\\llvm\\bin\\lldb-dap.exe",
+    "rust-analyzer.debug.engine": "llvm-vs-code-extensions.lldb-dap",
+    "lldb-dap.initCommands": [
+        "script print('RUST LLDB INIT EXECUTED')",
+        "command script import C:/Users/sunzh/.rustup/toolchains/nightly-x86_64-pc-windows-msvc/lib/rustlib/etc/lldb_lookup.py",
+        "type category enable Rust",
+        "type category list"
+    ],
+    "lldb-dap.enableAutoVariableSummaries": false
+}

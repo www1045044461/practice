@@ -5,27 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug executable 'practice'",
-            "type": "lldb",
+            "name": "Rust Test (LLDB 23)",
+            "type": "lldb-dap",
             "request": "launch",
-            "cargo": {
-                "args": [
-                    "run",
-                    "--bin=practice"
-                ]
-            },
-            "args": []
-        },
-        {
-            "name": "Debug unit tests in executable 'practice'",
-            "type": "lldb",
-            "request": "launch",
-            "cargo": {
-                "args": [
-                    "test",
-                    "--bin=practice"
-                ]
-            }
+            "program": "${workspaceFolder}\\target\\debug\\build\\practice\\42c5e8168b8577f4\\out\\practice-42c5e8168b8577f4.exe",
+            "args": [
+                "collects::dynamic_string::tests::test_example2",
+                "--exact",
+                "--nocapture"
+            ],
+            "cwd": "${workspaceFolder}",
+            "initCommands": [
+                "command script import C:/Users/sunzh/.rustup/toolchains/nightly-x86_64-pc-windows-msvc/lib/rustlib/etc/lldb_lookup.py",
+                "type category enable Rust"
+            ],
+            "enableAutoVariableSummaries": false
         }
     ]
 }

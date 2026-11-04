@@ -15,6 +15,7 @@ mod controlflow;
 mod patterns;
 mod method_associated_methods;
 mod generics_traits;
+mod collects;
 
 fn main()
 {
