@@ -96,7 +96,8 @@ fn example3_sln() {
     // impl From<String> for Vec
     let s = "hello".to_string();
     // let v1: Vec<u8> = s.__();
-    let v1 = s.into_bytes();
+    // let v1 = s.into_bytes();
+    let v1:Vec<u8>  = s.into();
 
     let s = "hello".to_string();
     let v2 = s.into_bytes();

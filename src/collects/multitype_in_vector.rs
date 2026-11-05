@@ -61,7 +61,7 @@ mod enum_impliment {
             t_len,
             std::mem::size_of::<String>() * vec3.len()
         );
-        println!("所以不同类型的值在向量中占用的实际内存长度可能不同");
+        // println!("所以不同类型的值在向量中占用的实际内存长度可能不同");
         *cost = t_len as i32;
     }
 }
@@ -364,15 +364,15 @@ mod enum_impliment_c21 {
             }
             let _t = ValueType::from(code as i8);
 
-            println!(
-                "GIndex:{}, Stage:{}, Code:{},InternalIndex:{}, FloatIndex:{}, TextIndex:{}",
-                self.gindex,
-                self.stage,
-                code,
-                self.internal_index,
-                self.float_index,
-                self.text_index
-            );
+            // println!(
+            //     "GIndex:{}, Stage:{}, Code:{},InternalIndex:{}, FloatIndex:{}, TextIndex:{}",
+            //     self.gindex,
+            //     self.stage,
+            //     code,
+            //     self.internal_index,
+            //     self.float_index,
+            //     self.text_index
+            // );
 
             let mut result = None;
             if ValueType::Integer == _t {
@@ -503,15 +503,15 @@ mod enum_impliment_c21 {
             // println!("{:?}", value_type);
             if let ValueType::Integer = value_type.0 {
                 if let Some(&last) = values.integers.get(value_type.1) {
-                    println!("Integer value: {}", last);
+                    // println!("Integer value: {}", last);
                 }
             } else if let ValueType::Float = value_type.0 {
                 if let Some(&last) = values.floats.get(value_type.1) {
-                    println!("Float value: {}", last);
+                    // println!("Float value: {}", last);
                 }
             } else if let ValueType::Text = value_type.0 {
                 if let Some(last) = values.strings.get(value_type.1) {
-                    println!("Text value: {}", last);
+                    // println!("Text value: {}", last);
                 }
             }
         }
@@ -529,6 +529,11 @@ mod enum_impliment_c3 {
 
     pub fn example(cost: &mut usize) {
         let mut values: Vec<Box<dyn Any>> = Vec::new();
+        //如何打印dyn Any的内存结构
+        println!("meta alignment:{}", std::mem::align_of::<Box<dyn Any>>());
+        //dyn Any是否为DST类型?
+        //打印dyn Any的内存结构
+        println!("meta size:{}", std::mem::size_of::<Box<dyn Any>>());
 
         for i in 0..100 {
             if i % 3 == 0 {
@@ -539,16 +544,21 @@ mod enum_impliment_c3 {
                 values.push(Box::new(format!("String {}", i)));
             }
         }
-
+        // for item in &values {
+        //     println!("Item type id: {:?}", item.type_id());
+        // }
         *cost = len(&values);
     }
 }
 
 #[cfg(test)]
 mod tests {
-
+    static TEST_SEPARATOR: &str = "----------------------------------------------------------------------";
     #[test]
     fn test_example() {
+        // 打印测试用例信息
+        println!("{}", TEST_SEPARATOR);
+        println!("测试使用Box存储String的向量示例");
         let mut pre_len = 0;
         let mut afr_len = 0;
         super::enum_impliment::example(&mut pre_len);
@@ -559,6 +569,7 @@ mod tests {
 
     #[test]
     fn test_example_c2() {
+        println!("{}", TEST_SEPARATOR);
         let mut pre = 0;
         super::enum_impliment::example(&mut pre);
         println!("使用结构体存储多种类型的值示例");
@@ -581,6 +592,7 @@ mod tests {
 
     #[test]
     fn test_example_c3() {
+        println!("{}", TEST_SEPARATOR);
         let mut pre_len = 0;
         let mut afr_len = 0;
         super::enum_impliment::example(&mut pre_len);
