@@ -6,6 +6,7 @@ nightly = true
 
 
 [dependencies]
+chron = "0.1.6"
 twox-hash = "2.1.5"
 utf8_slice = "1.0.0"
 

@@ -17,6 +17,7 @@ mod method_associated_methods;
 mod generics_traits;
 mod collects;
 mod type_convert;
+mod panic_result;
 
 fn main()
 {
