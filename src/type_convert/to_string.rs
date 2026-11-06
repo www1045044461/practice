@@ -1,10 +1,10 @@
-///
-/// 1.只要为一个类型实现了 ToString，就可以将任何类型转换成 String;但是更好的使用Display特征来实现格式化输出。
-/// 2.使用 parse 方法可以将一个 String 转换成 i32 数字，这是因为在标准库中为 i32 类型实现了 FromStr: : impl FromStr for i32
-/// 3.还可以为自定义类型实现 FromStr 特征;
-/// 4.std::mem::transmute 可以在类型之间进行位级别的转换，但需要谨慎使用，因为它可能导致未定义行为。
-///     a. transmute 可以将一个指针转换成一个函数指针，该转换并不具备可移植性，原因是在不同机器上，函数指针和数据指针可能有不同的位数( size )。
-///     b. transmute 还可以扩展或缩短一个不变量的生命周期，将 Unsafe Rust 的不安全性体现的淋漓尽致
+//!
+//! 1.只要为一个类型实现了 ToString，就可以将任何类型转换成 String;但是更好的使用Display特征来实现格式化输出。
+//! 2.使用 parse 方法可以将一个 String 转换成 i32 数字，这是因为在标准库中为 i32 类型实现了 FromStr: : impl FromStr for i32
+//! 3.还可以为自定义类型实现 FromStr 特征;
+//! 4.std::mem::transmute 可以在类型之间进行位级别的转换，但需要谨慎使用，因为它可能导致未定义行为。
+//!     a. transmute 可以将一个指针转换成一个函数指针，该转换并不具备可移植性，原因是在不同机器上，函数指针和数据指针可能有不同的位数( size )。
+//!     b. transmute 还可以扩展或缩短一个不变量的生命周期，将 Unsafe Rust 的不安全性体现的淋漓尽致
 use std::fmt;
 
 struct Point {

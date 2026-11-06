@@ -122,8 +122,8 @@ impl Inches {
 #[derive(Debug, PartialEq, PartialOrd)]
 struct Seconds(i32);
 
-/// 3. 在 Rust 中，许多运算符都可以被重载，事实上，运算符仅仅是特征方法调用的语法糖。
-/// 例如 a + b 中的 + 是 std::ops::Add 特征的 add 方法调用，因此我们可以为自定义类型实现该特征来支持该类型的加法运算。
+// 3. 在 Rust 中，许多运算符都可以被重载，事实上，运算符仅仅是特征方法调用的语法糖。
+// 例如 a + b 中的 + 是 std::ops::Add 特征的 add 方法调用，因此我们可以为自定义类型实现该特征来支持该类型的加法运算。
 use std::{ops};
 // 实现 fn multiply 方法
 // 如上所述，`+` 需要 `T` 类型实现 `std::ops::Add` 特征

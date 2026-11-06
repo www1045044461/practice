@@ -1,6 +1,6 @@
-/// 字符、bool和元组类型
-/// 1. rust的char类型是4字节的Unicode标量值，而不是单字节的ASCII字符 
-/// 
+//! 字符、bool和元组类型
+//! 1. rust的char类型是4字节的Unicode标量值，而不是单字节的ASCII字符
+//!
 use crate::function_name_macro::function_name;
 use std::mem::size_of_val; 
 fn char_pracitice()

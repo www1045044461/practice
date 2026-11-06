@@ -289,8 +289,8 @@ fn question13() {
     }
 }
 
-/// 我们可以使用三方库 utf8_slice 来访问 UTF-8 字符串的某个子串
-/// ，但是与之前不同的是，该库索引的是字符，而不是字节.
+// 我们可以使用三方库 utf8_slice 来访问 UTF-8 字符串的某个子串
+// ，但是与之前不同的是，该库索引的是字符，而不是字节.
 use utf8_slice;
 fn utf8_slice_test() {
     let s = "The 🚀 goes to the 🌑!";

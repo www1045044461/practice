@@ -1,6 +1,6 @@
 use crate::patterns::match_pattern::Message::Quit;
 
-/// 匹配模式
+// 匹配模式
 
 // 填空
 enum Direction {

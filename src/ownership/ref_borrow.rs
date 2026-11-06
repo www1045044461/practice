@@ -145,7 +145,7 @@ fn question7() {
     println!("{}, {}", r1, r2);
 }
 
-/// Arc 和 Mutex 的使用示例-->从引用规则延申出来的
+// Arc 和 Mutex 的使用示例-->从引用规则延申出来的
 use std::sync::{Arc, Mutex};
 fn arc_mutex_example() {
     let data = Arc::new(Mutex::new(0));

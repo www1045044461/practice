@@ -4,32 +4,32 @@ use std::panic;
 use std::sync::{Arc, OnceLock, RwLock, RwLockReadGuard, RwLockWriteGuard};
 use std::collections::HashMap;
 use std::panic::PanicHookInfo;
-///
-/// panic!(): 它会打印出一条错误信息并打印出栈调用情况，最终结束当前线程:
-///  1.主线程: 会导致整个程序终止。
-///  2.子线程: 只会终止当前线程，主线程继续执行。
-/// 
-/// 使用panic处理错误:
-///     1. 使用 panic::set_hook() 自定义 panic 处理逻辑。
-///     2. 使用 panic::catch_unwind() 捕获 panic 并进行处理。
-///     3. 高级设计,子线程出现 panic 不直接打印,主线程通过 join() 捕获,其他线程发生 panic 时仍然正常打印
-///     4. 通过 thread::current().id() 判断当前发生 panic 的线程
-/// 
-/// 默认情况下: 
-///     默认情况下，栈调用只会展示最基本的信息:
-///     例如:
-///         thread 'main' panicked at 'I don't like lemonade!', src/panic_result/panics.rs:28:9
-/// 望获取更详细的信息:(栈展开unwinding or 停止abort)
-///     可以通过自定义 panic hook 或者使用 RUST_BACKTRACE 环境变量来获取完整的栈调用信息。
-/// 
-/// 在Cargo.toml种设置
-/// ```toml
-/// [profile.dev]
-/// panic = "unwind" # 开发版本使用 unwind 以便在 panic 时可以回溯栈信息
-/// 
-/// [profile.release]
-/// panic = "abort" #release版本直接停止
-/// ```
+//
+// panic!(): 它会打印出一条错误信息并打印出栈调用情况，最终结束当前线程:
+//  1.主线程: 会导致整个程序终止。
+//  2.子线程: 只会终止当前线程，主线程继续执行。
+//
+// 使用panic处理错误:
+//     1. 使用 panic::set_hook() 自定义 panic 处理逻辑。
+//     2. 使用 panic::catch_unwind() 捕获 panic 并进行处理。
+//     3. 高级设计,子线程出现 panic 不直接打印,主线程通过 join() 捕获,其他线程发生 panic 时仍然正常打印
+//     4. 通过 thread::current().id() 判断当前发生 panic 的线程
+//
+// 默认情况下:
+//     默认情况下，栈调用只会展示最基本的信息:
+//     例如:
+//         thread 'main' panicked at 'I don't like lemonade!', src/panic_result/panics.rs:28:9
+// 望获取更详细的信息:(栈展开unwinding or 停止abort)
+//     可以通过自定义 panic hook 或者使用 RUST_BACKTRACE 环境变量来获取完整的栈调用信息。
+//
+// 在Cargo.toml种设置
+// ```toml
+// [profile.dev]
+// panic = "unwind" # 开发版本使用 unwind 以便在 panic 时可以回溯栈信息
+//
+// [profile.release]
+// panic = "abort" #release版本直接停止
+// ```
 use std::thread;
 use std::time;
 

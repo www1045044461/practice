@@ -34,7 +34,7 @@ impl From<i32> for Number {
     }
 }
 
-/// example3: 使用 From 特征实现自定义错误类型的转换
+// example3: 使用 From 特征实现自定义错误类型的转换
 use std::fs;
 use std::io;
 use std::num;
